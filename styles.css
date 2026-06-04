@@ -373,7 +373,8 @@ button,
 
 .task-list,
 .source-list,
-.tracking-grid {
+.tracking-grid,
+.integration-grid {
   display: grid;
   gap: 10px;
 }
@@ -400,11 +401,40 @@ button,
 .task,
 .source,
 .track-card,
-.connect-card {
+.connect-card,
+.integration-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 12px;
   background: #fff;
+}
+
+.integration-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.integration-card {
+  display: grid;
+  align-content: space-between;
+  min-height: 182px;
+  gap: 12px;
+}
+
+.integration-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.integration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.integration-form {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
 }
 
 .task {
@@ -475,7 +505,9 @@ input {
 
   .metrics,
   .look-grid,
-  .dna-grid {
+  .dna-grid,
+  .integration-grid,
+  .integration-form {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -489,7 +521,9 @@ input {
   nav,
   .metrics,
   .look-grid,
-  .dna-grid {
+  .dna-grid,
+  .integration-grid,
+  .integration-form {
     grid-template-columns: 1fr;
   }
 

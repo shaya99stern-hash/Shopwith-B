@@ -29,6 +29,7 @@
       <a href="#sources">Scraper Queue</a>
       <a href="#tracking">Tracking</a>
       <a href="#shopmy">ShopMy</a>
+      <a href="#integrations">Integrations</a>
     </nav>
   </aside>
 
@@ -165,6 +166,32 @@
           <button class="primary" type="submit">Save local config</button>
         </form>
       </div>
+    </section>
+
+    <section class="panel" id="integrations">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Connections</p>
+          <h2>Integration center</h2>
+        </div>
+        <button class="ghost" id="refreshIntegrations">Refresh</button>
+      </div>
+      <div class="integration-grid" id="integrationGrid"></div>
+      <form class="config-form integration-form" id="integrationForm">
+        <label>
+          ShopMy affiliate home
+          <input id="shopmyHome" name="shopmyHome" placeholder="https://shopmy.us/...">
+        </label>
+        <label>
+          Instagram profile
+          <input id="instagramProfile" name="instagramProfile" placeholder="https://www.instagram.com/comeshopwithb/">
+        </label>
+        <label>
+          Custom integration key
+          <input id="customIntegrationKey" name="customIntegrationKey" placeholder="Paste private key/token for your local browser only">
+        </label>
+        <button class="primary" type="submit">Save integration settings</button>
+      </form>
     </section>
   </main>
 

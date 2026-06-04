@@ -203,9 +203,13 @@ const defaultState = {
   config: {
     creatorHandle: "",
     trackingLabel: "sunday-open-shop",
+    shopmyHome: "https://shopmy.us/login",
+    instagramProfile: "https://www.instagram.com/comeshopwithb/",
+    customIntegrationKey: "",
   },
   currentFilter: "All",
   pipelineIndex: 1,
+  integrations: {},
 };
 
 let state = loadState();
@@ -220,6 +224,41 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+async function fetchIntegrationStatus() {
+  try {
+    const response = await fetch("./api/integrations");
+    if (!response.ok) throw new Error(`Integration status ${response.status}`);
+    state.integrations = await response.json();
+  } catch {
+    state.integrations = {
+      shopmy: {
+        name: "ShopMy",
+        status: state.config.shopmyHome ? "ready" : "needs setup",
+        detail: "Opens ShopMy sign-in and stores affiliate links in the app.",
+        connectUrl: state.config.shopmyHome || "https://shopmy.us/login",
+      },
+      gmail: {
+        name: "Gmail",
+        status: "needs OAuth app",
+        detail: "Gmail connection is scaffolded. Google OAuth credentials belong in Vercel environment variables.",
+        connectUrl: "https://accounts.google.com/",
+      },
+      instagram: {
+        name: "Instagram",
+        status: "ready",
+        detail: "Profile connection is ready for manual linking. API auth can be enabled with Instagram app credentials.",
+        connectUrl: state.config.instagramProfile || "https://www.instagram.com/comeshopwithb/",
+      },
+      custom: {
+        name: "Custom key",
+        status: state.config.customIntegrationKey ? "saved locally" : "empty",
+        detail: "A private key can be saved to this browser for quick testing without committing it to GitHub.",
+        connectUrl: "#integrations",
+      },
+    };
+  }
 }
 
 function affiliateHref(raw, storeUrl) {
@@ -324,9 +363,34 @@ function renderTracking() {
     .join("");
 }
 
+function renderIntegrations() {
+  const holder = document.querySelector("#integrationGrid");
+  const integrations = state.integrations || {};
+  holder.innerHTML = Object.entries(integrations)
+    .map(([key, integration]) => {
+      const status = integration.status || "pending";
+      const url = integration.connectUrl || "#integrations";
+      const target = url.startsWith("http") ? ' target="_blank" rel="noreferrer"' : "";
+      return `<article class="integration-card">
+        <header>
+          <strong>${integration.name || key}</strong>
+          <span class="status">${status}</span>
+        </header>
+        <p class="caption">${integration.detail || ""}</p>
+        <div class="integration-actions">
+          <a class="ghost link-button" href="${url}"${target}>Connect</a>
+        </div>
+      </article>`;
+    })
+    .join("");
+}
+
 function hydrateConfig() {
   document.querySelector("#creatorHandle").value = state.config.creatorHandle || "";
   document.querySelector("#trackingLabel").value = state.config.trackingLabel || "";
+  document.querySelector("#shopmyHome").value = state.config.shopmyHome || "";
+  document.querySelector("#instagramProfile").value = state.config.instagramProfile || "";
+  document.querySelector("#customIntegrationKey").value = state.config.customIntegrationKey || "";
 }
 
 function updateMetrics() {
@@ -353,6 +417,22 @@ document.querySelector("#configForm").addEventListener("submit", (event) => {
   saveState();
 });
 
+document.querySelector("#integrationForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  state.config.shopmyHome = document.querySelector("#shopmyHome").value.trim();
+  state.config.instagramProfile = document.querySelector("#instagramProfile").value.trim();
+  state.config.customIntegrationKey = document.querySelector("#customIntegrationKey").value.trim();
+  saveState();
+  fetchIntegrationStatus().then(() => {
+    renderIntegrations();
+    hydrateConfig();
+  });
+});
+
+document.querySelector("#refreshIntegrations").addEventListener("click", () => {
+  fetchIntegrationStatus().then(renderIntegrations);
+});
+
 document.querySelector("#exportData").addEventListener("click", () => {
   const payload = JSON.stringify({ state, looks, tasks, sources, tracking }, null, 2);
   const blob = new Blob([payload], { type: "application/json" });
@@ -364,10 +444,16 @@ document.querySelector("#exportData").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
-renderFilters();
-renderLooks();
-renderTasks();
-renderSources();
-renderTracking();
-hydrateConfig();
-updateMetrics();
+async function init() {
+  renderFilters();
+  renderLooks();
+  renderTasks();
+  renderSources();
+  renderTracking();
+  hydrateConfig();
+  updateMetrics();
+  await fetchIntegrationStatus();
+  renderIntegrations();
+}
+
+init();

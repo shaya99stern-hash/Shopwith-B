@@ -5,7 +5,7 @@
   "description": "PWA affiliate studio for modest family shopping edits, ShopMy links, and drop tracking.",
   "scripts": {
     "start": "npx http-server . -p 4173 -c-1",
-    "check": "node --check app.js && node --check pwa.js && node --check sw.js"
+    "check": "node --check app.js && node --check pwa.js && node --check sw.js && node --check api/integrations.js"
   },
   "keywords": [
     "pwa",
