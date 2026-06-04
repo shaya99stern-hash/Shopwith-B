@@ -210,6 +210,7 @@ const defaultState = {
   currentFilter: "All",
   pipelineIndex: 1,
   integrations: {},
+  workflow: [],
 };
 
 let state = loadState();
@@ -259,6 +260,40 @@ async function fetchIntegrationStatus() {
       },
     };
   }
+}
+
+async function runIntegrationWorkflow() {
+  const payload = {
+    creatorHandle: state.config.creatorHandle,
+    trackingLabel: state.config.trackingLabel,
+    shopmyHome: state.config.shopmyHome,
+    instagramProfile: state.config.instagramProfile,
+    hasCustomKey: Boolean(state.config.customIntegrationKey),
+    lookCount: looks.length,
+    productSlots: looks.reduce((sum, look) => sum + look.products.length, 0),
+  };
+
+  try {
+    const response = await fetch("./api/workflow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`Workflow status ${response.status}`);
+    const result = await response.json();
+    state.workflow = result.steps || [];
+  } catch {
+    state.workflow = [
+      ["ShopMy", "Open creator dashboard and collect affiliate links for product slots."],
+      ["Gmail", "Watch brand/retailer emails for sale alerts and product availability."],
+      ["Instagram", "Use @comeshopwithb profile themes to pick the Sunday drop lane."],
+      ["Custom", state.config.customIntegrationKey ? "Local key is saved for browser testing." : "Paste a local key or add production env secrets on Vercel."],
+      ["Output", `${looks.length} looks and ${payload.productSlots} product slots are ready for affiliate completion.`],
+    ];
+  }
+
+  saveState();
+  renderWorkflow();
 }
 
 function affiliateHref(raw, storeUrl) {
@@ -385,6 +420,13 @@ function renderIntegrations() {
     .join("");
 }
 
+function renderWorkflow() {
+  const holder = document.querySelector("#workflowLog");
+  holder.innerHTML = (state.workflow || [])
+    .map(([label, note]) => `<article class="workflow-step"><strong>${label}</strong><span class="caption">${note}</span></article>`)
+    .join("");
+}
+
 function hydrateConfig() {
   document.querySelector("#creatorHandle").value = state.config.creatorHandle || "";
   document.querySelector("#trackingLabel").value = state.config.trackingLabel || "";
@@ -433,6 +475,8 @@ document.querySelector("#refreshIntegrations").addEventListener("click", () => {
   fetchIntegrationStatus().then(renderIntegrations);
 });
 
+document.querySelector("#runIntegrationWorkflow").addEventListener("click", runIntegrationWorkflow);
+
 document.querySelector("#exportData").addEventListener("click", () => {
   const payload = JSON.stringify({ state, looks, tasks, sources, tracking }, null, 2);
   const blob = new Blob([payload], { type: "application/json" });
@@ -454,6 +498,7 @@ async function init() {
   updateMetrics();
   await fetchIntegrationStatus();
   renderIntegrations();
+  renderWorkflow();
 }
 
 init();

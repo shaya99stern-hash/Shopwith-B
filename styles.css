@@ -420,6 +420,34 @@ button,
   gap: 12px;
 }
 
+.workflow-console {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: #fbf7f1;
+}
+
+.workflow-log {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.workflow-step {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 10px;
+  background: #fff;
+}
+
 .integration-card header {
   display: flex;
   justify-content: space-between;
@@ -529,5 +557,11 @@ input {
 
   .section-head {
     display: grid;
+  }
+
+  .workflow-console,
+  .workflow-step {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }

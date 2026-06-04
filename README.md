@@ -33,6 +33,9 @@ First-version affiliate studio for `@comeshopwithb` style modest Orthodox family
   - track performance
 - Stores local creator handle and default tracking label in browser localStorage.
 - Exports JSON for later migration into a backend.
+- Adds an integration center for ShopMy, Gmail, Instagram, and a custom key.
+- Runs a backend-backed integration workflow through `api/workflow.js`.
+- Includes native iOS SwiftUI source in `ios/` for the app build track.
 
 ## How To Open
 
@@ -87,6 +90,30 @@ For deployment:
 - Use environment variables for private credentials and tokens.
 - Use a secure database or encrypted secret store for persisted connection state.
 - Store affiliate links and tracking labels in database rows, not source files.
+
+## Integrations
+
+The app has Vercel API routes for integration status and workflow orchestration:
+
+- `api/integrations.js`
+- `api/workflow.js`
+
+Production OAuth credentials should be added as Vercel environment variables:
+
+- `SHOPMY_HOME_URL`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_REDIRECT_URI`
+- `INSTAGRAM_CLIENT_ID`
+- `INSTAGRAM_REDIRECT_URI`
+- `CUSTOM_INTEGRATION_NAME`
+
+The browser app also supports a local custom key field for quick testing.
+
+## Native iOS
+
+Native iOS source lives in `ios/ShopWithB`.
+
+The iOS app opens the production Shop with B app and gives native quick access to ShopMy, Gmail, and Instagram. Building for TestFlight or App Store requires Xcode on macOS and an Apple Developer account.
 
 ## Next Build Steps
 
