@@ -1,0 +1,23 @@
+{
+  "shopmy": {
+    "creatorHandle": "@yourhandle",
+    "trackingLabel": "sunday-open-shop",
+    "loginUrl": "https://shopmy.us/login",
+    "notes": "Do not put passwords in this file. Use environment variables or a secure secret store in production."
+  },
+  "preferredBrands": ["H&M", "Zara", "Mango"],
+  "brandFamilies": {
+    "hm": ["H&M", "H&M Kids", "H&M Baby", "H&M Home"],
+    "zara": ["Zara", "Zara Kids", "Zara Baby", "Zara Home", "Zara Man"],
+    "mango": ["Mango", "Mango Kids", "Mango Baby", "Mango Man"]
+  },
+  "rules": {
+    "audience": "religious Orthodox moms shopping for family",
+    "womensModesty": true,
+    "noOpenToeShoes": true,
+    "noBelts": true,
+    "noVisibleElasticWaists": true,
+    "palette": ["brown", "powder blue", "ivory", "blush", "sage", "soft navy", "cream"],
+    "instagramThemes": ["Swim", "Shavuos inspo", "Family look", "Rompers", "SS 26", "Outfit inspo", "Kids sets", "Kids shoes", "Sukkos table", "Tablescape"]
+  }
+}

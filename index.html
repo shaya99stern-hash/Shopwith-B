@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8ca38b">
+  <meta name="description" content="Shop with B is a modest family affiliate shopping studio for outfit edits, ShopMy links, and drop tracking.">
+  <meta name="application-name" content="Shop with B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Shop with B">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Shop with B</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <p class="eyebrow">Affiliate Studio</p>
+      <h1>Shop with B</h1>
+      <p class="lede">Modest family shopping drops for Orthodox moms, children, babies, and husbands.</p>
+    </div>
+    <nav aria-label="Main">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#looks">Looks</a>
+      <a href="#tasks">Task Flow</a>
+      <a href="#sources">Scraper Queue</a>
+      <a href="#tracking">Tracking</a>
+      <a href="#shopmy">ShopMy</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero" id="dashboard">
+      <div>
+        <p class="eyebrow">Sunday drop</p>
+        <h2>Build affiliate-ready family shopping edits in Bassi's actual style.</h2>
+        <p>Every edit starts from the Instagram language: Shavuos inspo, family looks, rompers, SS26, outfit prep, kids sets, kids shoes, swim, tablescapes, and practical mom shopping.</p>
+      </div>
+      <div class="hero-card">
+        <span>Next launch</span>
+        <strong>Sunday open shop</strong>
+        <small>Mom looks, kids, babies, husband picks, boys' durable sports.</small>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Overview metrics">
+      <article>
+        <span>Looks seeded</span>
+        <strong id="metricLooks">0</strong>
+      </article>
+      <article>
+        <span>Product slots</span>
+        <strong id="metricSlots">0</strong>
+      </article>
+      <article>
+        <span>Affiliate status</span>
+        <strong id="metricAffiliate">Draft</strong>
+      </article>
+      <article>
+        <span>Audience</span>
+        <strong>Family</strong>
+      </article>
+    </section>
+
+    <section class="panel style-dna" aria-label="Style DNA">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Style DNA</p>
+          <h2>What the app should think like</h2>
+        </div>
+      </div>
+      <div class="dna-grid">
+        <article>
+          <strong>Family coordination</strong>
+          <p>Build full family palettes, sibling sets, holiday edits, and outfit-prep boards.</p>
+        </article>
+        <article>
+          <strong>Practical modest shopping</strong>
+          <p>Closed shoes, covered silhouettes, no belts, no open toes, no women's shorts or pants.</p>
+        </article>
+        <article>
+          <strong>Seasonal taste</strong>
+          <p>Browns and blues, ivory, powder blue, blush, soft navy, holiday whites, gentle florals.</p>
+        </article>
+        <article>
+          <strong>Money-aware curation</strong>
+          <p>Recommend what is worth buying, what solves a morning or holiday problem, and what works across kids.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="looks">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Clickable lookbook</p>
+          <h2>Outfit combinations</h2>
+        </div>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="look-grid" id="lookGrid"></div>
+    </section>
+
+    <section class="split">
+      <div class="panel" id="tasks">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Automation chain</p>
+            <h2>Task flow</h2>
+          </div>
+          <button class="primary" id="runPipeline">Run next task</button>
+        </div>
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <div class="panel" id="sources">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Product discovery</p>
+            <h2>Scraper queue</h2>
+          </div>
+          <button class="ghost" id="addSource">Add source</button>
+        </div>
+        <div class="source-list" id="sourceList"></div>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel" id="tracking">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Performance</p>
+            <h2>Tracking dashboard</h2>
+          </div>
+        </div>
+        <div class="tracking-grid" id="trackingGrid"></div>
+      </div>
+
+      <div class="panel" id="shopmy">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Affiliate routing</p>
+            <h2>ShopMy connection</h2>
+          </div>
+        </div>
+        <div class="connect-card">
+          <strong>Sign-in method for v1</strong>
+          <p>Open ShopMy, sign in there, then paste affiliate URLs into the product slots. The app stores links locally for this browser. For deployment, secrets belong in environment variables or a secure database, never hard-coded passwords.</p>
+          <div class="button-row">
+            <a class="primary link-button" href="https://shopmy.us/login" target="_blank" rel="noreferrer">Open ShopMy login</a>
+            <button class="ghost" id="exportData">Export JSON</button>
+          </div>
+        </div>
+        <form class="config-form" id="configForm">
+          <label>
+            ShopMy creator handle
+            <input id="creatorHandle" name="creatorHandle" placeholder="@yourhandle">
+          </label>
+          <label>
+            Default tracking label
+            <input id="trackingLabel" name="trackingLabel" placeholder="sunday-open-shop">
+          </label>
+          <button class="primary" type="submit">Save local config</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <template id="lookTemplate">
+    <article class="look-card">
+      <div class="look-image">
+        <div class="hotspot-layer"></div>
+      </div>
+      <div class="look-body">
+        <div class="look-title-row">
+          <h3></h3>
+          <span class="pill"></span>
+        </div>
+        <p class="caption"></p>
+        <div class="products"></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

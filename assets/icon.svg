@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Shop with B app icon</title>
+  <desc id="desc">A soft sage shopping tag with the letter B.</desc>
+  <rect width="512" height="512" rx="112" fill="#faf8f3"/>
+  <path fill="#8ca38b" d="M141 127c0-20 16-36 36-36h126c18 0 35 7 48 20l50 50c13 13 20 30 20 48v126c0 20-16 36-36 36H177c-20 0-36-16-36-36V127Z"/>
+  <circle cx="317" cy="171" r="24" fill="#faf8f3"/>
+  <path fill="#fff" d="M209 148h74c34 0 57 20 57 51 0 20-10 36-28 44 24 7 38 25 38 52 0 36-27 59-67 59h-74V148Zm64 83c19 0 31-10 31-27 0-16-12-26-31-26h-28v53h28Zm6 93c22 0 35-11 35-30s-13-29-35-29h-34v59h34Z"/>
+</svg>

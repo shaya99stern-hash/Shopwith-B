@@ -1,0 +1,40 @@
+{
+  "name": "Shop with B",
+  "short_name": "Shop with B",
+  "description": "Modest family affiliate shopping studio for outfit edits, ShopMy links, and drop tracking.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#faf8f3",
+  "theme_color": "#8ca38b",
+  "categories": ["shopping", "productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Looks",
+      "short_name": "Looks",
+      "description": "Open outfit combinations.",
+      "url": "./index.html#looks"
+    },
+    {
+      "name": "ShopMy",
+      "short_name": "ShopMy",
+      "description": "Open ShopMy link workflow.",
+      "url": "./index.html#shopmy"
+    },
+    {
+      "name": "Tracking",
+      "short_name": "Tracking",
+      "description": "Open performance tracking.",
+      "url": "./index.html#tracking"
+    }
+  ]
+}
